@@ -10,8 +10,8 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = "7fff09fe31cb95069ca7515bd5022585"
 
 # Banco de dados
-if os.getenv("DATABASE_URL"):
-    app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
+if os.getenv("DATABASE_PUBLIC_URL"):
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_PUBLIC_URL")
 else:
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///site.db"
 
@@ -27,3 +27,4 @@ loginManager.login_message_category = "alert-info"
 
 # importar arquivos de links
 from siteComunidadeImpressionadora import routes
+
