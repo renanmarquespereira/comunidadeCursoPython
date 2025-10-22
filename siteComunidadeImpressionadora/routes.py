@@ -31,30 +31,36 @@ def login():
     if formLogin.validate_on_submit() and "btnSubmitLogin" in request.form:
         usuario = Usuario.query.filter_by(email=formLogin.email.data).first()
 
-        if usuario and bcrypt.checkpw(formLogin.senhaLogin.data.encode("utf-8"), usuario.senha):
-            #login_user grava em cache o usuario
+        if usuario and bcrypt.checkpw(
+            formLogin.senhaLogin.data.encode("utf-8"),
+            usuario.senha.encode("utf-8")
+        ):
             login_user(usuario, remember=formLogin.lembrarLogin.data)
-            flash(f"Bem-Vindo {usuario.username} você esta logado agora.", "alert-success")
+            flash(f"Bem-vindo {usuario.username}, você está logado agora.", "alert-success")
 
             param_next_url = request.args.get("next")
-
-            if param_next_url:
-                return redirect(param_next_url)
-            else:
-                return redirect(url_for("home"))
+            return redirect(param_next_url) if param_next_url else redirect(url_for("home"))
         else:
-            flash(f"Falha no login, email ou senha incorretos.", "alert-danger")
+            flash("Falha no login, email ou senha incorretos.", "alert-danger")
 
     if formCriar.validate_on_submit() and "btnSubmitCriarConta" in request.form:
-        senhaCripto = cripitografarSenha.generate_password_hash(formCriar.senhaCriarConta.data)
-        novoUsuario = Usuario(username=formCriar.username.data, email=formCriar.email.data, senha=senhaCripto)
+        senhaCripto = cripitografarSenha.generate_password_hash(
+            formCriar.senhaCriarConta.data
+        ).decode("utf-8")
+
+        novoUsuario = Usuario(
+            username=formCriar.username.data,
+            email=formCriar.email.data,
+            senha=senhaCripto
+        )
         database.session.add(novoUsuario)
         database.session.commit()
 
-        flash(f"Usuario {formCriar.username.data} cadastrado com sucesso!", "alert-success")
+        flash(f"Usuário {formCriar.username.data} cadastrado com sucesso!", "alert-success")
         return redirect(url_for("home"))
 
     return render_template("login.html", formLogin=formLogin, formCriar=formCriar)
+
 
 @app.route('/sair')
 @login_required
