@@ -50,3 +50,5 @@ class Form_editar_perfil(FlaskForm):
 class Form_criar_post(FlaskForm):
     titulo = StringField('', render_kw={"placeholder": "Titulo"}, validators=[DataRequired()])
     corpo = TextAreaField('', render_kw={"placeholder": "Escreva seu post aqui..."}, validators=[DataRequired()])
+    btnSubmitCriarPost = SubmitField('Criar Post')
+
