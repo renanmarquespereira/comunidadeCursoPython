@@ -1,9 +1,9 @@
-import bcrypt
 from flask import render_template, redirect, request, url_for, flash, Flask, abort
 from siteComunidadeImpressionadora import app, database, cripitografarSenha
 from siteComunidadeImpressionadora.forms import FormLogin, FormCriarConta, Form_editar_perfil, Form_criar_post
 from siteComunidadeImpressionadora.models import Usuario, Post
 from flask_login import login_user, logout_user, current_user, login_required
+from siteComunidadeImpressionadora import cripitografarSenha
 import secrets
 import os
 from PIL import Image
@@ -31,10 +31,8 @@ def login():
     if formLogin.validate_on_submit() and "btnSubmitLogin" in request.form:
         usuario = Usuario.query.filter_by(email=formLogin.email.data).first()
 
-        if usuario and bcrypt.checkpw(
-            formLogin.senhaLogin.data.encode("utf-8"),
-            usuario.senha.encode("utf-8")
-        ):
+        if usuario and cripitografarSenha.check_password_hash(usuario.senha, formLogin.senhaLogin.data):
+
             login_user(usuario, remember=formLogin.lembrarLogin.data)
             flash(f"Bem-vindo {usuario.username}, você está logado agora.", "alert-success")
 
