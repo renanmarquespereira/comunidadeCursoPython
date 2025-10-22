@@ -21,8 +21,12 @@ class Usuario(database.Model, UserMixin):
     def contar_posts(self):
         return len(self.posts)
 
+
 class Post(database.Model):
     id = database.Column('id', database.Integer, primary_key=True)
     titulo = database.Column('titulo', database.String, nullable=False)
     corpo = database.Column('corpo', database.Text, nullable=False)
     dataCriacao = database.Column('dataCriacao', database.DateTime, nullable=False, default=datetime.now)
+
+    # Chave estrangeira que conecta ao Usuario
+    id_usuario = database.Column(database.Integer, database.ForeignKey('usuario.id'), nullable=False)
