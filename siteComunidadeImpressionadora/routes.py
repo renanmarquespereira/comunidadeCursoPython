@@ -163,3 +163,15 @@ def exibir_post(post_id):
         form = None
 
     return render_template("post.html", post=post, form=form)
+
+@app.route('/post/<post_id>/excluir', methods=['POST'])
+@login_required
+def excluir_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    if post.autor != current_user:
+        abort(403)  # Impede que outro usuário exclua o post
+    database.session.delete(post)
+    database.session.commit()
+    flash("Post excluído com sucesso!", "alert-success")
+    return redirect(url_for("home"))
+
