@@ -16,7 +16,6 @@ if os.getenv("DATABASE_URL"):
 else:
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///site.db"
 
-
 database = SQLAlchemy(app)
 
 cripitografarSenha = Bcrypt(app)
