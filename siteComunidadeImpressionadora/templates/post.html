@@ -18,7 +18,7 @@
 
             </div>
             <div class="col col-9">
-                <h3>{{ post.titulo }}<small class="text-muted" style="font-size: 15px"> - Data de Criação: {{ post.dataCriacao.strftime('%d/%m/%Y ás %H:%M') }}
+                <h3>{{ post.titulo }}<small class="text-muted" style="font-size: 15px"> - Data de Criação: {{ data_local.strftime('%d/%m/%Y às %H:%M') }}
                 {% if form %}
                     - <a href="#form_editar_post">Editar Post</a> / <a  href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" style="color: crimson">Excluir Post</a>
                     {% endif %}

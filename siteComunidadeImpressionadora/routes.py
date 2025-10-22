@@ -6,6 +6,8 @@ from flask_login import login_user, logout_user, current_user, login_required
 import secrets
 import os
 from PIL import Image
+from zoneinfo import ZoneInfo
+
 
 @app.route('/')
 def home():
@@ -162,7 +164,10 @@ def exibir_post(post_id):
     else:
         form = None
 
-    return render_template("post.html", post=post, form=form)
+    data_local = post.dataCriacao.replace(tzinfo=ZoneInfo("UTC")).astimezone(ZoneInfo("America/Sao_Paulo"))
+
+
+    return render_template("post.html", post=post, form=form, data_local=data_local)
 
 @app.route('/post/<post_id>/excluir', methods=['POST'])
 @login_required
