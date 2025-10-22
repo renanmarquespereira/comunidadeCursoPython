@@ -21,7 +21,7 @@
 
             </div>
             <div class="col col-9">
-                <h3>{{ post.titulo }}</h3>
+                <h3>{{ post.titulo }}</h3><small class="text-muted" style="font-size: 15px"> - Postado em: {{ post.dataCriacao.strftime('%d/%m/%Y ás %H:%M') }}</small>
                 <p>{{ post.corpo }}</p>
             </div>
         </div>
