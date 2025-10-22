@@ -12,8 +12,12 @@ from zoneinfo import ZoneInfo
 @app.route('/')
 def home():
     posts = Post.query.order_by(Post.id.desc()).all()
-    data_local = posts.dataCriacao.replace(tzinfo=ZoneInfo("UTC")).astimezone(ZoneInfo("America/Sao_Paulo"))
-    return render_template("home.html", posts=posts, data_local=data_local)
+    # Ajustar o fuso horário de cada post individualmente
+    for post in posts:
+        if post.dataCriacao:
+            post.dataCriacao = post.dataCriacao.replace(tzinfo=ZoneInfo("UTC")).astimezone(ZoneInfo("America/Sao_Paulo"))
+
+    return render_template("home.html", posts=posts)
 
 @app.route('/contato')
 def contato():
