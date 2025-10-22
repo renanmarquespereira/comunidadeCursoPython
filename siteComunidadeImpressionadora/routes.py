@@ -3,7 +3,6 @@ from siteComunidadeImpressionadora import app, database, cripitografarSenha
 from siteComunidadeImpressionadora.forms import FormLogin, FormCriarConta, Form_editar_perfil, Form_criar_post
 from siteComunidadeImpressionadora.models import Usuario, Post
 from flask_login import login_user, logout_user, current_user, login_required
-from siteComunidadeImpressionadora import cripitografarSenha
 import secrets
 import os
 from PIL import Image
@@ -32,7 +31,6 @@ def login():
         usuario = Usuario.query.filter_by(email=formLogin.email.data).first()
 
         if usuario and cripitografarSenha.check_password_hash(usuario.senha, formLogin.senhaLogin.data):
-
             login_user(usuario, remember=formLogin.lembrarLogin.data)
             flash(f"Bem-vindo {usuario.username}, você está logado agora.", "alert-success")
 
@@ -58,6 +56,7 @@ def login():
         return redirect(url_for("home"))
 
     return render_template("login.html", formLogin=formLogin, formCriar=formCriar)
+
 
 
 @app.route('/sair')
