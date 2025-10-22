@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {% extends 'base.html' %}
 {% block body %}
 
@@ -34,40 +33,3 @@
     </div>
 
 {% endblock %}
-=======
-{% extends 'base.html' %}
-{% block body %}
-
-    <div class="container mt-3">
-    <h1 style="color: orange">Comunidade Impressionadora - Hashag Treinamentos</h1>
-    <h2>Alunos, experts e a galera da Hashtag em um só lugar</h2>
-        <hr>
-    {% for post in posts %}
-        <a href=" {{ url_for('exibir_post', post_id=post.id) }} " style="text-decoration: none; color:inherit">
-        <div class="row border mt-4 p-3 meupost">
-            <div class="col col-3">
-                <div class="image pe-2"> <img src="{{ url_for('static', filename='images/{}'.format(post.autor.foto_perfil)) }}" class="rounded" width="200"> </div>
-                <strong class="">{{ post.autor.username }}</strong>
-
-                <div class="row justify-content-rigth">
-
-                        {% for curso in post.autor.cursos.split(';') %}
-                            <button type="button" class="btn btn-success mt-2" disabled>{{ curso }}</button>
-                        {% endfor %}
-                </div>
-
-            </div>
-            <div class="col col-9">
-                <h3>{{ post.titulo }}</h3>
-                <p>{{ post.corpo }}</p>
-            </div>
-        </div>
-        </a>
-
-        {% endfor %}
-
-
-    </div>
-
-{% endblock %}
->>>>>>> 1723ee4999c69d256e2aed76b0d392e4406e9091

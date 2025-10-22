@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from siteComunidadeImpressionadora import database, loginManager
 from datetime import datetime
 from flask_login import UserMixin
@@ -27,7 +26,7 @@ class Post(database.Model):
     titulo = database.Column('titulo', database.String, nullable=False)
     corpo = database.Column('corpo', database.Text, nullable=False)
     dataCriacao = database.Column('dataCriacao', database.DateTime, nullable=False, default=datetime.now)
-=======
+
 from siteComunidadeImpressionadora import database, loginManager
 from datetime import datetime
 from flask_login import UserMixin
@@ -56,5 +55,4 @@ class Post(database.Model):
     titulo = database.Column('titulo', database.String, nullable=False)
     corpo = database.Column('corpo', database.Text, nullable=False)
     dataCriacao = database.Column('dataCriacao', database.DateTime, nullable=False, default=datetime.now)
->>>>>>> 1723ee4999c69d256e2aed76b0d392e4406e9091
     id_usuario = database.Column('id_usuario', database.Integer, database.ForeignKey('usuario.id'), nullable=False)
