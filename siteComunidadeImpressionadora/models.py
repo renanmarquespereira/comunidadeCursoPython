@@ -10,6 +10,8 @@ def load_usuario(id_usuario):
 
 # UserMixin diz qual a classe que faz login
 class Usuario(database.Model, UserMixin):
+    __tablename__ = "usuario"
+    __table_args__ = {'extend_existing': True}
     id = database.Column('id', database.Integer, primary_key=True)
     username = database.Column('username', database.String, unique=True, nullable=False)
     senha = database.Column('senha', database.String, nullable=False)

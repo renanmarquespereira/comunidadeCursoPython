@@ -33,7 +33,6 @@ inspector = sqlalchemy.inspect(engine)
 
 if not inspector.has_table("usuario"):
     with app.app_context():
-        database.drop_all()
         database.create_all()
         print("BASE DE DADOS CRIADA")
 else:
